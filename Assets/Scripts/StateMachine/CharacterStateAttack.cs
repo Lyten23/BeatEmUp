@@ -113,6 +113,13 @@ public class CharacterStateAttack : CharacterStateBase
             hasConnect = true;
         }
     }
+
+    IEnumerator VFXTime()
+    {
+        particleSystem.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        particleSystem.SetActive(false);
+    }
     /// <summary>
     /// Método que lanza el hit del ataque
     /// </summary>

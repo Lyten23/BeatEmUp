@@ -8,6 +8,9 @@
         },
         {
             "m_Id": "59970a7c59c54a4c8edd47228a8d61c6"
+        },
+        {
+            "m_Id": "5176dd2f09c8418b8309c13f801dd617"
         }
     ],
     "m_Keywords": [],
@@ -328,10 +331,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -611.9999389648438,
-            "y": 163.99998474121095,
-            "width": 208.00003051757813,
-            "height": 326.0
+            "x": -586.9999389648438,
+            "y": 371.0000305175781,
+            "width": 207.99996948242188,
+            "height": 326.0000305175781
         }
     },
     "m_Slots": [
@@ -457,6 +460,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "5176dd2f09c8418b8309c13f801dd617",
+    "m_Guid": {
+        "m_GuidSerialized": "b25efe80-b67a-4314-87a6-cd86cba947f6"
+    },
+    "m_Name": "Bits",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Bits",
+    "m_DefaultReferenceName": "_Bits",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 32.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "59970a7c59c54a4c8edd47228a8d61c6",
@@ -570,10 +601,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -756.9999389648438,
-            "y": 114.99999237060547,
-            "width": 147.0,
-            "height": 34.00000762939453
+            "x": -812.9999389648438,
+            "y": -54.000003814697269,
+            "width": 146.99993896484376,
+            "height": 33.99999237060547
         }
     },
     "m_Slots": [
@@ -1063,6 +1094,9 @@
         },
         {
             "m_Id": "59970a7c59c54a4c8edd47228a8d61c6"
+        },
+        {
+            "m_Id": "5176dd2f09c8418b8309c13f801dd617"
         }
     ]
 }
@@ -1222,7 +1256,7 @@
         "tex2d"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": false,
+    "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
