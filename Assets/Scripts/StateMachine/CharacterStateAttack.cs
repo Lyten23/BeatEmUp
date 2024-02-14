@@ -29,7 +29,7 @@ public class CharacterStateAttack : CharacterStateBase
     // Indica el total de frames de la animación
     protected int totalFrames;
     [Header("Particulas")] 
-    public ParticleSystem [] particleSystem;
+    public GameObject  particleSystem;
 
     private void OnDrawGizmos()
     {
@@ -48,10 +48,11 @@ public class CharacterStateAttack : CharacterStateBase
         currentFrame = 0;
         
         playerController.animator.Play(animationName,-1,0);
+        
     }
     public override void StateExit()
     {
-        
+        particleSystem.SetActive(false);
     }
     public override void StateLoop()
     {
@@ -91,10 +92,6 @@ public class CharacterStateAttack : CharacterStateBase
             {
                 // Ejecutamos el siguiente ataque
                 stateMachine.SetState(nextAttackState);
-                foreach (var t in particleSystem)
-                {
-                    t.Play();
-                }
             }
             else
             {
@@ -104,10 +101,6 @@ public class CharacterStateAttack : CharacterStateBase
         } else if (!string.IsNullOrEmpty(endStateName))
         {
             // Si no se conecta con otro ataque y hay estado de fin, pasamos a este.
-            foreach (var t in particleSystem)
-            {
-                t.Play();
-            }
             stateMachine.SetState(endStateName);
         }
     }
@@ -143,6 +136,7 @@ public class CharacterStateAttack : CharacterStateBase
             if (others[i].TryGetComponent(out HitReceiver hitReceiver))
             {
                 result = HitManager.Instance.CheckHit(playerController.transform, hitReceiver, hitInfo);
+                particleSystem.SetActive(true);
             }
             // Si ya hay hit, lo dejamos como está.
             if (!hasHit)
