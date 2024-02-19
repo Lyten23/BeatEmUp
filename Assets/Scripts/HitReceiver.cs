@@ -15,7 +15,8 @@ public class HitReceiver : MonoBehaviour
             value = hitInfo
         };
         // Creamos un array de parametros e insertamos el parametro anterior
-        StateBase.StateParameter[] parameters = new StateBase.StateParameter[] { parameter };
+        StateBase.StateParameter[] parameters = new StateBase.StateParameter[] { parameter };   
         stateMachine.SetState(hitStateName,parameters);
+        
     }
 }

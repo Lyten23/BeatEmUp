@@ -12,6 +12,7 @@ public class CharacterStateHit : CharacterStateBase
     // Tiempo que dura el estado (incapacitación)
     public float time;
     public string endStateName;
+    public string transitionState;
     [Range(0,1)]
     public float shakeIntensity = 0.5f;
     // Variación máxima del shake
@@ -20,18 +21,16 @@ public class CharacterStateHit : CharacterStateBase
     private float _shakeVariation;
     // Contador de tiempo del estado
     private float _timer;
-
     private HitManager.HitInfo _currentHitInfo;
     public override void StateEnter(StateParameter[] parameters = null)
     {
         _timer = 0;
         _shakeVariation = shakeIntensity * _shakeVariation;
         playerController.animator.Play(animationName);
-       
         if (parameters!=null && parameters.Length>0)
         {
             if(parameters[0].value is not HitManager.HitInfo) return;
-            // Obtenemos el parámetro como un HitInfo y lo almacenamos en la variable de hit dle estado.
+            // Obtenemos el parámetro como un HitInfo y lo almacenamos en la variable de hit del estado.
             _currentHitInfo = (HitManager.HitInfo) parameters[0].value;
             // Asignamos la fuerza del hit al personaje.
             playerController.movement.SetVelocity(_currentHitInfo.groundForce,_currentHitInfo.verticalForce);
@@ -57,11 +56,17 @@ public class CharacterStateHit : CharacterStateBase
     {
         if (_timer>=time)
         {
-            stateMachine.SetState(endStateName);
+            if (playerController.movement.GroundVelocity.x is > 0 or < 0)
+            {
+                stateMachine.SetState(transitionState);
+            }
+            else
+            {
+                stateMachine.SetState(endStateName);
+            }
             return;
         }
     }
-
     private void Shake()
     {
         // Obtenemos la posición local del body del personaje

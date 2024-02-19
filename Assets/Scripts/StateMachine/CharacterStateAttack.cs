@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CharacterStateAttack : CharacterStateBase
 {   
@@ -28,13 +29,22 @@ public class CharacterStateAttack : CharacterStateBase
     protected int currentFrame;
     // Indica el total de frames de la animación
     protected int totalFrames;
-    [Header("Particulas")] 
+    [Header("VFX")] 
     public GameObject  particleSystem;
+    [Header("Sound")] 
+    [SerializeField] private AudioClip[] audioClips;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSourceNoConnectHit;
     private void OnDrawGizmos()
     {
         Gizmos.color=Color.cyan;
         Gizmos.DrawWireCube(playerController.transform.position + hitBox.center, hitBox.size);
+    }
+
+    private void Awake()
+    {
+        
     }
 
     public override void StateEnter(StateParameter[] parameters = null)
@@ -52,6 +62,11 @@ public class CharacterStateAttack : CharacterStateBase
     }
     public override void StateExit()
     {
+        if (string.IsNullOrEmpty(endStateName))
+        {
+            audioSource.PlayOneShot(audioClips[Random.Range(0,audioClips.Length)]);
+        }
+        
         particleSystem.SetActive(false);
     }
     public override void StateLoop()
@@ -76,6 +91,7 @@ public class CharacterStateAttack : CharacterStateBase
         {
             // Si el frame actual está por encima de inicio del hit y por debajo del final del hit o el frame inicial es mayor que el final (para casos en los que no usemos el frame final)
             hitIsActive = true;
+            audioSourceNoConnectHit.Play();
         }
         else if (hitIsActive && (currentFrame < startHitFrame || (currentFrame > endHitFrame && currentFrame >= endHitFrame)))
         {
@@ -91,11 +107,13 @@ public class CharacterStateAttack : CharacterStateBase
             if (hasHit)
             {
                 // Ejecutamos el siguiente ataque
+                audioSource.PlayOneShot(audioClips[Random.Range(0,audioClips.Length)]);
                 stateMachine.SetState(nextAttackState);
             }
             else
             {
                 // Si no hay hit ejecutamos este mismo ataque
+                audioSourceNoConnectHit.Play();
                 stateMachine.SetState(stateName);
             }
         } else if (!string.IsNullOrEmpty(endStateName))
@@ -112,13 +130,6 @@ public class CharacterStateAttack : CharacterStateBase
             // Indicamos que hay que conectar con el siguiente ataque
             hasConnect = true;
         }
-    }
-
-    IEnumerator VFXTime()
-    {
-        particleSystem.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        particleSystem.SetActive(false);
     }
     /// <summary>
     /// Método que lanza el hit del ataque
