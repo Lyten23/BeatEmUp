@@ -4433,6 +4433,7 @@ MonoBehaviour:
   staticJumpState: StartStaticJumpState
   attackState: Attack1State
   moveInput: {x: 0, y: 0}
+  speed: 2
 --- !u!1 &696028285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 188803999412558196, guid: b40449e0610057248bd1dc66b9ff19a5,
@@ -5030,6 +5031,7 @@ MonoBehaviour:
   staticJumpState: StartStaticJumpState
   attackState: Attack1State
   moveInput: {x: 0, y: 0}
+  speed: 0
 --- !u!1 &831771707
 GameObject:
   m_ObjectHideFlags: 0
@@ -10101,8 +10103,8 @@ MonoBehaviour:
   rb2d: {fileID: 1581694414}
   moveCollider: {fileID: 1581694415}
   characterBody: {fileID: 1881780154}
-  horizontalVelocity: 0
-  verticalVelocity: 0
+  horizontalVelocity: 2
+  verticalVelocity: 3
   moveArea: {fileID: 1909724002}
   jumpForce: 7
   gravityForce: -9.8
@@ -10211,13 +10213,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581694411}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2628a1e78e9cb314e85167dbe437de45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 804142708}
-  speed: 2
+  playerTarget: {fileID: 1581694411}
   movement: {fileID: 1581694413}
   animator: {fileID: 1690371637}
   stateMachine: {fileID: 1930504189}
@@ -10228,7 +10229,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581694411}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90e762073c58dfe4085a055a3a7c685e, type: 3}
   m_Name: 

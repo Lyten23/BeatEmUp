@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     }
     void Update()
     {
-      stateMachine.Step();S
+      stateMachine.Step();
     } 
     private void FixedUpdate()
     { 
