@@ -5,9 +5,10 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     #region Variables
-    [Header("References")] [Tooltip("Referencia del target del enemigo")] public GameObject playerTarget;
+    [Header("References")] [Tooltip("Referencia del target del enemigo")] public Transform playerTarget;
     [Tooltip("Componente para aplicar movimiento al personaje")] public CharacterMovement movement;
     [Tooltip("Referencia al animator del personaje")] public Animator animator;
+    
     public StateMachineController stateMachine;
     #endregion
     void Start()
@@ -16,6 +17,7 @@ public class EnemyController : MonoBehaviour
     }
     void Update()
     {
+        
       stateMachine.Step();
     } 
     private void FixedUpdate()

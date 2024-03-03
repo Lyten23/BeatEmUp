@@ -14,8 +14,6 @@ public class CharacterStateMovement : CharacterStateBase
     public string staticJumpState;
     public string attackState;
     public Vector2 moveInput;
-    private float distance;
-    public float speed;
    
     public override void StateEnter(StateParameter[] parameters = null)
     {
@@ -60,7 +58,6 @@ public class CharacterStateMovement : CharacterStateBase
     public override void StateLoop()
     {
         playerController.movement.Move(moveInput.x,moveInput.y);
-        Follow();
     }
     public override void StatePhysicsLoop()
     {
@@ -77,13 +74,5 @@ public class CharacterStateMovement : CharacterStateBase
         {
             playerController.animator.Play(idleAnimationName);
         }
-    }
-    void Follow()
-    {
-        var position = playerController.movement.transform.position;
-        var position1 = transform.position;
-        distance = Vector2.Distance(position1, position);
-        Vector2 direction = position - position1;
-        position1 = Vector2.MoveTowards(position1, position, speed* Time.deltaTime); transform.position = position1;
     }
 }

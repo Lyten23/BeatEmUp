@@ -24,7 +24,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private Vector2 velocity;
     [SerializeField] private Vector2 bodyMovementStep;
     [SerializeField] private bool canJump;
-    public ParticleSystem particleSystem;
 
 
     public Vector2 FaceDirection
