@@ -29,6 +29,7 @@ public class CharacterStateSimple1 : CharacterStateBase
     private Vector2 _movementBackup;
     public override void StateEnter(StateParameter[] parameters = null)
     {
+        Debug.Log("Estoy aquí");
         // Reproducimos la animación del estado.
         playerController.animator.Play(animationName);
         // Inicializmos las variables de control del estado.
@@ -43,6 +44,7 @@ public class CharacterStateSimple1 : CharacterStateBase
     }
     public override void StateExit()
     {
+        Debug.Log("Salgo de aquí");
         // Si debemos parar el movimiento al salir...
         if (stopMovementOnEnter && startMovementOnExit)
         {
@@ -66,10 +68,11 @@ public class CharacterStateSimple1 : CharacterStateBase
         {
             _animationHasEnded = true;
         }
+        Debug.Log(exitOnAnimationEnds&&!playerController.animator.IsPlaying(animationName));
     }
     public override void StateInput()
     {
-        if ((!exitOnAnimationEnds && _timer >= timeToExit || _animationHasEnded))
+        if ((!exitOnAnimationEnds && _timer >= timeToExit) || _animationHasEnded)
         {
             stateMachine.SetState(exitStateName);
         }

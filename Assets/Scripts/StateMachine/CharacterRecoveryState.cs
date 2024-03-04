@@ -11,7 +11,6 @@ public class CharacterRecoveryState : CharacterStateBase
     public string exitState;
     public override void StateEnter(StateParameter[] parameters = null)
     {
-        Debug.Log("Entro en recovery");
         playerController.animator.Play(animationName);
     }
     public override void StateExit()

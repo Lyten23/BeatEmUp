@@ -15,7 +15,6 @@ public class EnemyMovementState : EnemyStateBase
     public string walkAnimationName; 
     public string idleAnimationName;
     public string attackState;
-
     public override void StateEnter(StateParameter[] parameters = null)
     {
         
@@ -49,31 +48,27 @@ public class EnemyMovementState : EnemyStateBase
     }
     void Follow()
     {
-        if (!enemyController.isStateAttack)
-        {
-            Vector2 enemyPosition = enemyController.movement.transform.position;
-            Vector2 playerPosition = playerTarget.position;
-            if (Mathf.Abs(enemyPosition.x - playerPosition.x) > minDistance)
-            {
-                enemyPosition.x = Vector2.MoveTowards(enemyPosition, new Vector2(playerPosition.x, enemyPosition.y), 
+        Vector2 enemyPosition = enemyController.movement.transform.position;
+        Vector2 playerPosition = playerTarget.position;
+        if (Mathf.Abs(enemyPosition.x - playerPosition.x) > minDistance)
+        { 
+            enemyPosition.x = Vector2.MoveTowards(enemyPosition, new Vector2(playerPosition.x, enemyPosition.y), 
                     speed * Time.deltaTime).x;
-                enemyController.isMoving = true;
-            }
-            else
-            {
-                enemyController.isStateAttack = true;
-                stateMachine.SetState(attackState);
-            }
-            if (Mathf.Abs(enemyPosition.y - playerPosition.y) > minYDistance)
-            {
-                enemyPosition.y = Vector2.MoveTowards(enemyPosition, new Vector2(enemyPosition.x, playerPosition.y), 
-                    speed * Time.deltaTime).y;
-                enemyController.isMoving = true;
-            }
-            enemyController.movement.transform.position = enemyPosition;
-            bool isPlayerRight = enemyPosition.x < playerPosition.x;
-            FlipEnemy(isPlayerRight);
+            enemyController.isMoving = true;
         }
+        else
+        {
+            StartCoroutine(ChangeState());
+        }
+        if (Mathf.Abs(enemyPosition.y - playerPosition.y) > minYDistance)
+        {
+            enemyPosition.y = Vector2.MoveTowards(enemyPosition, new Vector2(enemyPosition.x, playerPosition.y), 
+                    speed * Time.deltaTime).y;
+            enemyController.isMoving = true;
+        }
+        enemyController.movement.transform.position = enemyPosition;
+        bool isPlayerRight = enemyPosition.x < playerPosition.x;
+        FlipEnemy(isPlayerRight);
     }
     void FlipEnemy(bool isPlayerRight)
     {
@@ -86,7 +81,6 @@ public class EnemyMovementState : EnemyStateBase
             transform1.localScale = scale;
         }
     }
-
     IEnumerator ChangeState()
     {
         enemyController.isMoving = false;

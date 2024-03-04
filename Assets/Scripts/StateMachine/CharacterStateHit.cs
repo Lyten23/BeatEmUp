@@ -56,7 +56,7 @@ public class CharacterStateHit : CharacterStateBase
     {
         if (_timer>=time)
         {
-            if (playerController.movement.GroundVelocity.x is > 0 or < 0)
+            if (!playerController.movement.IsGrounded)
             {
                 stateMachine.SetState(transitionState);
             }

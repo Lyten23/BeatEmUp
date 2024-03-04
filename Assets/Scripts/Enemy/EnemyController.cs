@@ -10,8 +10,12 @@ public class EnemyController : MonoBehaviour
     [Tooltip("Referencia al animator del personaje")] public Animator animator;
     [SerializeField] public bool isMoving;
     [SerializeField] public bool isStateAttack;
-    
     public StateMachineController stateMachine;
+    [SerializeField] private Transform[] wayPoints;
+    [SerializeField] private float speed;
+    [SerializeField] private int currentWayPoint;
+    public int waitTime;
+    private bool isWaiting;
     #endregion
     void Start()
     {
@@ -30,4 +34,5 @@ public class EnemyController : MonoBehaviour
     { 
         stateMachine.LateLoop();
     }
+    
 }
