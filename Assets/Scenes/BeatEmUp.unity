@@ -4429,9 +4429,11 @@ MonoBehaviour:
   enemyController: {fileID: 1581694417}
   speed: 2
   minDistance: 1.8
+  minYDistance: 0
   playerTarget: {fileID: 804142712}
   walkAnimationName: Walk
   idleAnimationName: Idle
+  attackState: EnemyAttackState
 --- !u!1 &696028285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 188803999412558196, guid: b40449e0610057248bd1dc66b9ff19a5,
@@ -10216,6 +10218,8 @@ MonoBehaviour:
   playerTarget: {fileID: 804142712}
   movement: {fileID: 1581694413}
   animator: {fileID: 1690371637}
+  isMoving: 0
+  isStateAttack: 0
   stateMachine: {fileID: 1930504189}
 --- !u!114 &1581694418
 MonoBehaviour:
@@ -10421,6 +10425,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1470854887}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1693094005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1693094006}
+  - component: {fileID: 1693094007}
+  m_Layer: 0
+  m_Name: AttackState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1693094006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693094005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1930504190}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1693094007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693094005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a01a1f29a5aa4ff2ae9ab3aadf7e4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: EnemyAttackState
+  stateMachine: {fileID: 1930504189}
+  enemyController: {fileID: 1581694417}
+  attackAnimationName: Attack1
+  isAttack: 0
+  movementState: EnemyMovementState
 --- !u!1 &1700308693
 GameObject:
   m_ObjectHideFlags: 0
@@ -11037,6 +11091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states:
   - {fileID: 693525792}
+  - {fileID: 1693094007}
   - {fileID: 37264556}
   - {fileID: 1190612718}
   - {fileID: 628057974}
@@ -11054,6 +11109,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 693525791}
+  - {fileID: 1693094006}
   - {fileID: 37264557}
   - {fileID: 1190612717}
   - {fileID: 628057975}

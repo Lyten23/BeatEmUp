@@ -7,13 +7,14 @@ public class EnemyMovementState : EnemyStateBase
     [Header("EnemyMovementState")]
     [SerializeField] private float speed;
     [SerializeField] private float minDistance;
+    [SerializeField] private float minYDistance;
     public Transform playerTarget;
-    private bool isMoving;
     private Vector2 moveInput;
     private bool isFacingRight = true;
     [Header("Animations")]
     public string walkAnimationName; 
     public string idleAnimationName;
+    public string attackState;
 
     public override void StateEnter(StateParameter[] parameters = null)
     {
@@ -33,13 +34,13 @@ public class EnemyMovementState : EnemyStateBase
     }
     public override void StateLateLoop()
     {
-        if (!isMoving)
+        if (enemyController.isMoving)
         {
-            enemyController.animator.Play(idleAnimationName);
+            enemyController.animator.Play(walkAnimationName);
         }
         else
         {
-            enemyController.animator.Play(walkAnimationName);
+            enemyController.animator.Play(idleAnimationName);
         }
     }
     public override void StateInput()
@@ -48,18 +49,31 @@ public class EnemyMovementState : EnemyStateBase
     }
     void Follow()
     {
-        if (Vector2.Distance(enemyController.movement.transform.position,playerTarget.position) > minDistance)
+        if (!enemyController.isStateAttack)
         {
-            enemyController.movement.transform.position = Vector2.MoveTowards(enemyController.movement.transform.position, playerTarget.position, speed* Time.deltaTime);
-            isMoving = true;
+            Vector2 enemyPosition = enemyController.movement.transform.position;
+            Vector2 playerPosition = playerTarget.position;
+            if (Mathf.Abs(enemyPosition.x - playerPosition.x) > minDistance)
+            {
+                enemyPosition.x = Vector2.MoveTowards(enemyPosition, new Vector2(playerPosition.x, enemyPosition.y), 
+                    speed * Time.deltaTime).x;
+                enemyController.isMoving = true;
+            }
+            else
+            {
+                enemyController.isStateAttack = true;
+                stateMachine.SetState(attackState);
+            }
+            if (Mathf.Abs(enemyPosition.y - playerPosition.y) > minYDistance)
+            {
+                enemyPosition.y = Vector2.MoveTowards(enemyPosition, new Vector2(enemyPosition.x, playerPosition.y), 
+                    speed * Time.deltaTime).y;
+                enemyController.isMoving = true;
+            }
+            enemyController.movement.transform.position = enemyPosition;
+            bool isPlayerRight = enemyPosition.x < playerPosition.x;
+            FlipEnemy(isPlayerRight);
         }
-        else
-        {
-            isMoving = false;
-        }
-
-        bool isPlayerRight = enemyController.transform.position.x < playerTarget.transform.position.x;
-        FlipEnemy(isPlayerRight);
     }
     void FlipEnemy(bool isPlayerRight)
     {
@@ -71,5 +85,12 @@ public class EnemyMovementState : EnemyStateBase
             scale.x *= -1;
             transform1.localScale = scale;
         }
+    }
+
+    IEnumerator ChangeState()
+    {
+        enemyController.isMoving = false;
+        yield return new WaitForSeconds(0.1f);
+        stateMachine.SetState(attackState);
     }
 }

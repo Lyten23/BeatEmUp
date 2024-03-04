@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
     [Header("References")] [Tooltip("Referencia del target del enemigo")] public Transform playerTarget;
     [Tooltip("Componente para aplicar movimiento al personaje")] public CharacterMovement movement;
     [Tooltip("Referencia al animator del personaje")] public Animator animator;
+    [SerializeField] public bool isMoving;
+    [SerializeField] public bool isStateAttack;
     
     public StateMachineController stateMachine;
     #endregion
